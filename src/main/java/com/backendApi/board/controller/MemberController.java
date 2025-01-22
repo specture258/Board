@@ -66,6 +66,6 @@ public class MemberController {
     @PostMapping("/board/logout")
     public ResponseEntity<String> logout(HttpSession session){
         session.invalidate();
-        return ResponseEntity.ok("로그아웃 되었습니다");   //todo json형태로 변경하기
+        return ResponseEntity.ok("로그아웃 되었습니다");
     }
 }

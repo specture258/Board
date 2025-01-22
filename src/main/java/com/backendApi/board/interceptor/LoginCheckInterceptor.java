@@ -25,8 +25,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
         if(session == null || session.getAttribute("loginMember") == null){
 
             throw  new AuthorizationException(ANONYMOUS_ACCESS);
-            //response.sendRedirect("/board/signin?redirectURL=" + requestURI);    //todo 수정 필요 백엔드에서 처리하는게 아니라 그냥 오류 발생시키고 상태코드 반환
-           // return false;
         }
         return true;
     }
