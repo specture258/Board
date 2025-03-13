@@ -42,6 +42,14 @@ public class Post {
         this.member = member;
     }
 
+    public void setBoard(Board board){
+        if(this.board != null){
+            this.board.getPostList().remove(this);
+        }
+        this.board = board;
+        board.getPostList().add(this);
+    }
+
     @Transactional
     public void setMember(Member member){
         if(this.member != null){

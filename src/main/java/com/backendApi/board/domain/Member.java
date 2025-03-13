@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
@@ -28,6 +28,10 @@ public class Member {
     @Column(name = "nickname")
     private String nickname;
 
+    @Column(name = "grade")
+    @Enumerated(EnumType.STRING)
+    private Grade grade;
+
     @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();
 
@@ -39,6 +43,11 @@ public class Member {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        this.grade = Grade.USER;
+    }
+
+    public void setAdmin(){
+        this.grade = Grade.ADMIN;
     }
 
 

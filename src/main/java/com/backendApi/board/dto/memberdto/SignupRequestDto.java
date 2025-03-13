@@ -1,5 +1,6 @@
 package com.backendApi.board.dto.memberdto;
 
+import com.backendApi.board.domain.Grade;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;

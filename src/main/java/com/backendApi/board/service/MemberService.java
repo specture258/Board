@@ -1,5 +1,6 @@
 package com.backendApi.board.service;
 
+import com.backendApi.board.domain.Grade;
 import com.backendApi.board.domain.Member;
 import com.backendApi.board.exception.SigninException;
 import com.backendApi.board.exception.SignupException;
@@ -15,6 +16,8 @@ import static com.backendApi.board.exception.ErrorCode.*;
 @Service
 @RequiredArgsConstructor
 public class MemberService {
+
+    static final String ADMIN_NICKNAME = "canterbury";
 
     public final MemberRepository memberRepository;
 
@@ -35,6 +38,10 @@ public class MemberService {
             throw new SignupException(DUPLICATED_PARAMETER);
         }else if(isSameNickName(member.getNickname())){
             throw new SignupException(DUPLICATED_PARAMETER);
+        }
+
+        if(member.getNickname().equals(ADMIN_NICKNAME)){
+            member.setAdmin();
         }
         memberRepository.save(member);
     }

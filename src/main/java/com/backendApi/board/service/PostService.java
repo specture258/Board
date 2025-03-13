@@ -1,32 +1,33 @@
 package com.backendApi.board.service;
 
+import com.backendApi.board.domain.Board;
 import com.backendApi.board.domain.Member;
 import com.backendApi.board.domain.Post;
 import com.backendApi.board.dto.commentdto.ResponseCommentDto;
 import com.backendApi.board.dto.postdto.RequestPostDto;
-import com.backendApi.board.dto.ResponseBoardDto;
+import com.backendApi.board.dto.postdto.ResponsePostDetailDto;
 import com.backendApi.board.dto.postdto.ResponsePostDto;
+import com.backendApi.board.repository.BoardRepository;
 import com.backendApi.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
-import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.backendApi.board.exception.ErrorCode.NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     public final PostRepository postRepository;
+    public final BoardRepository boardRepository;
 
     @Transactional
-    public Post createPost(RequestPostDto requestPostDto, Member member) {
+    public Post createPost(String title, RequestPostDto requestPostDto, Member member) {
         Post post = new Post(requestPostDto.getTitle(), requestPostDto.getContent(), member);
+        Board board = boardRepository.findByTitle(title);
        // post.setMember(member);
+        post.setBoard(board);
         postRepository.save(post);
         return  post;
     }
@@ -36,28 +37,13 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<ResponseBoardDto> getAllPost(){
-//        List<ResponseBoardDto> list = new ArrayList<>();
-//        Long count = postRepository.findPostCount();
-//
-//        for(long i=1 ; i<=count ;i++){
-//            Post post = getPostById(i);
-//            list.add(new ResponseBoardDto(post.getId(), post.getTitle(), post.getMember().getNickname()));
-//        }
-
-        return postRepository.findAllPost().stream()
-                .map(ResponseBoardDto::new)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public ResponsePostDto getPost(Long id){
         Post post = postRepository.findById(id);
-        ResponsePostDto responsePostDto = new ResponsePostDto(id, post.getTitle(), post.getContent(), post.getMember().getNickname(),post.getCommentList().stream()
+        ResponsePostDto responsePostDetailDto = new ResponsePostDetailDto(id, post.getTitle(), post.getContent(), post.getMember().getNickname(),post.getCommentList().stream()
                 .map(ResponseCommentDto::new)
                 .collect(Collectors.toList()));
 
-        return  responsePostDto;
+        return responsePostDetailDto;
     }
 
     @Transactional

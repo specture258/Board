@@ -15,7 +15,7 @@ public enum ErrorCode {
     ANONYMOUS_ACCESS(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다"),
     NO_SIGNUP_INFORMATION(HttpStatus.BAD_REQUEST, "회원 가입에 필요한 정보를 입력해주세요"),
     NO_SIGNIN_INFORMATION(HttpStatus.BAD_REQUEST, "아이디 / 비밀번호를 입력해주세요"),
-    NOT_AUTHORIZATION(HttpStatus.FORBIDDEN, "수정 권한이 없습니다"),
+    NOT_AUTHORIZATION(HttpStatus.FORBIDDEN, "수정 / 삭제 권한이 없습니다"),
     NOT_FOUND(HttpStatus.NOT_FOUND, "페이지 / 리소스가 존재하지 않습니다 : ");
 
 
