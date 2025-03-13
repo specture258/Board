@@ -35,7 +35,7 @@ public class BoardController {
         ResponseBoardDto responseBoardDto = new ResponseBoardDto(board.getTitle());
 
         return new ResponseEntity<>(responseBoardDto, HttpStatus.OK);
-
+        //TODO 응답값 수정 필요
 
     }
 

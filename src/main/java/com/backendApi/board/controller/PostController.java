@@ -25,10 +25,6 @@ public class PostController {
     public final PostService postService;
     public final BoardService boardService;
 
-    @GetMapping("/board/post")
-    public ResponseEntity<Void> getWritingPostPage(){
-        return ResponseEntity.ok().build();
-    }
 
     @PostMapping("/board/{title}/post")
     public ResponseEntity<ResponsePostDto> uploadPost(@Valid @RequestBody RequestPostDto requestPostDto, @PathVariable("title")String title,

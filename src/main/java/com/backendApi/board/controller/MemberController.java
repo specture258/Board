@@ -26,16 +26,6 @@ public class MemberController {
 
     public final MemberService memberService;
 
-    @GetMapping("/board/signup")
-    public ResponseEntity<Void> getSignupPage(){
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/board/signin")
-    public ResponseEntity<?> getSigninPage(){
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/board/signup")
     public ResponseEntity<SignupResponseDto> signup(@Valid @RequestBody SignupRequestDto requestDto){
 
